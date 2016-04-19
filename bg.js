@@ -1,6 +1,6 @@
 var simple = false;
 
-var using = 7;
+var using = 14;
 var search = /vid.*hls.*(\/hls.*.ts)/;
 
 var countries = {
