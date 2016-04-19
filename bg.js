@@ -1,6 +1,7 @@
 var simple = false;
 
-var using = 14;
+var using = 0;
+
 var search = /vid.*hls.*(\/hls.*.ts)/;
 
 var countries = {
@@ -51,9 +52,13 @@ for (var i = 0; i < replacements.length; i++) {
 }
 
 function updateButton() {
+  chrome.storage.local.set({
+    replacement: using
+  }, function() {
 	var cluster = replacements[using][0];
 	chrome.browserAction.setBadgeText({
 		text: cluster.toString()
+	});
 	});
 }
 
@@ -123,4 +128,9 @@ chrome.contextMenus.create({
 
 chrome.browserAction.onClicked.addListener(click);
 
-init();
+chrome.storage.local.get({
+    replacement: using
+  }, function(items) {
+    using = items.replacement;
+	init();
+  });
